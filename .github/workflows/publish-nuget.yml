@@ -9,6 +9,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     env:
+        DOTNET_VERSION: 3.1.401
         PROJECT_FILE_PATH: ./src/Strings.Abbreviations/Strings.Abbreviations.csproj
         TAG_FORMAT_PREFIX: v
 
@@ -16,6 +17,11 @@ jobs:
       - uses: actions/checkout@v2
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }} 
         
       - name: Get project version
         id: project_version
