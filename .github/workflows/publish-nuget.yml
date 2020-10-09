@@ -30,9 +30,7 @@ jobs:
         id: project_version
         run: |
           versionJsonOutput=`dotnet version -f "./${{ env.PROJECT_FILE_PATH }}" --output-format=json`
-          echo $versionJsonOutput
           value=`echo $versionJsonOutput | jq -r '.currentVersion'`
-          echo $value
           echo ::set-output name=PROJECT_VERSION::$value
 
       - name: Publish NuGet on version change
@@ -46,6 +44,6 @@ jobs:
 
       - name: Push tag
         run: |
-          $tag=${{ env.TAG_FORMAT_PREFIX }}${{ steps.project_version.outputs.PROJECT_VERSION}}
+          tag=${{ env.TAG_FORMAT_PREFIX }}${{ steps.project_version.outputs.PROJECT_VERSION}}
           git tag $tag
           git push "https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" $tag
