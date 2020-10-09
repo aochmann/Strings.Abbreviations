@@ -31,7 +31,7 @@ jobs:
         run: |
           versionJsonOutput=`dotnet version -f "./${{ env.PROJECT_FILE_PATH }}" --output-format=json`
           echo $versionJsonOutput
-          value=`$versionJsonOutput | jq -r '.currentVersion'`
+          value=`echo $versionJsonOutput | jq -r '.currentVersion'`
           echo $value
           echo ::set-output name=PROJECT_VERSION::$value
 
