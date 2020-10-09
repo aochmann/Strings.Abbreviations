@@ -2,7 +2,8 @@ name: Publish NuGet package
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - testing/tagging
 
 jobs:
   publish:
@@ -30,6 +31,7 @@ jobs:
           PROJECT_FILE_PATH: ${{ env.PROJECT_FILE_PATH }}
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
           TAG_COMMIT: false
+        continue-on-error: true
 
       - name: Push tag
         run: |
